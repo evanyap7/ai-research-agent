@@ -9,7 +9,8 @@ export function isApprovedUrl(value: string): boolean {
       return false;
     }
 
-    const host = url.hostname.toLowerCase();
+    // URL keeps the brackets on IPv6 hosts ("[::1]"); ipaddr.js only parses the bare form.
+    const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, "");
 
     // Check domain extensions / hostnames known to be internal/private
     if (
@@ -24,7 +25,11 @@ export function isApprovedUrl(value: string): boolean {
 
     // Try parsing as IP address (v4 or v6) using ipaddr.js
     if (ipaddr.isValid(host)) {
-      const addr = ipaddr.parse(host);
+      let addr = ipaddr.parse(host);
+      // ::ffff:127.0.0.1 would otherwise report "ipv4Mapped" and skip the IPv4 checks.
+      if (addr.kind() === "ipv6" && (addr as ipaddr.IPv6).isIPv4MappedAddress()) {
+        addr = (addr as ipaddr.IPv6).toIPv4Address();
+      }
       const rangeName = addr.range() as string;
 
       // Block non-unicast or private IP ranges
@@ -32,6 +37,7 @@ export function isApprovedUrl(value: string): boolean {
         rangeName === "loopback" ||
         rangeName === "private" ||
         rangeName === "linkLocal" ||
+        rangeName === "uniqueLocal" ||
         rangeName === "broadcast" ||
         rangeName === "carrierGradeNat" ||
         rangeName === "carrierNat" ||
