@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import TurndownService from "turndown";
-import { isApprovedUrl } from "./sources";
+import { isPublicUrl } from "./sources";
 
 const MAX_CHARS_PER_SOURCE = 30_000;
 const FETCH_TIMEOUT_MS = 6_000;
@@ -163,11 +163,11 @@ function isChallengePage(text: string, title = ""): boolean {
   );
 }
 
-export async function fetchApprovedSource(
+export async function fetchSource(
   url: string,
   id: string
 ): Promise<SourcePacket> {
-  if (!isApprovedUrl(url)) {
+  if (!isPublicUrl(url)) {
     throw new Error("This URL is not from an approved source.");
   }
 
@@ -219,7 +219,7 @@ export async function fetchApprovedSource(
       if (href.toLowerCase().includes(".pdf")) {
         try {
           const fullPdfUrl = new URL(href, url).toString();
-          if (isApprovedUrl(fullPdfUrl) && !pdfLinks.includes(fullPdfUrl)) {
+          if (isPublicUrl(fullPdfUrl) && !pdfLinks.includes(fullPdfUrl)) {
             pdfLinks.push(fullPdfUrl);
           }
         } catch {

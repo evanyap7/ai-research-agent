@@ -3,12 +3,12 @@ import { createGroq } from "@ai-sdk/groq";
 import { generateObject } from "ai";
 import { z } from "zod";
 
-import { fetchApprovedSource, type SourcePacket } from "@/lib/fetch-source";
+import { fetchSource, type SourcePacket } from "@/lib/fetch-source";
 import {
   researchResultSchema,
   claimVerificationSchema,
 } from "@/lib/research-schema";
-import { isApprovedUrl, searchWebSources } from "@/lib/sources";
+import { isPublicUrl, searchWebSources } from "@/lib/sources";
 
 const requestSchema = z.object({
   question: z.string().min(3).max(1_000),
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     let targetUrls: string[] = [];
 
     if (body.customUrls && body.customUrls.length > 0) {
-      targetUrls = body.customUrls.filter((url) => isApprovedUrl(url));
+      targetUrls = body.customUrls.filter((url) => isPublicUrl(url));
       if (targetUrls.length === 0) {
         throw new Error(
           "None of the provided custom URLs are valid public HTTP/HTTPS endpoints."
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     }
 
     const sourceResults = await Promise.allSettled(
-      targetUrls.map((url, index) => fetchApprovedSource(url, `candidate_${index + 1}`))
+      targetUrls.map((url, index) => fetchSource(url, `candidate_${index + 1}`))
     );
 
     const successfulSources = sourceResults

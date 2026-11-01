@@ -156,7 +156,7 @@ const UNIVERS_SAMPLE_PROMPTS: Record<
 const LOADING_STAGES = [
   {
     title: "Client & Acronym Resolution",
-    desc: "Resolving Univers client entities (MTL, HACTL, AAHK) into official corporate profiles...",
+    desc: "Matching client names (MTL, HACTL, AAHK) to their official domains...",
   },
   {
     title: "Multi-Engine Disclosures Gathering",
@@ -311,7 +311,7 @@ export default function Home() {
     }
 
     if (data.sources.length > 0) {
-      report += `\n## Verified Client Disclosures & Sources\n`;
+      report += `\n## Retrieved Disclosures & Sources\n`;
       for (const s of data.sources) {
         report += `- [${s.id}] ${s.title} (${s.url})\n`;
       }
@@ -363,7 +363,7 @@ export default function Home() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
               </span>
-              <span>EnOS Entity Graph • Client Reports Active</span>
+              <span>Client entity map • Public reports</span>
             </div>
 
             {/* Developed by Evan Yap Link */}
@@ -425,7 +425,7 @@ export default function Home() {
           </h1>
 
           <p className="mx-auto mt-3 max-w-2xl text-xs text-slate-400 sm:text-base leading-relaxed">
-            Audit client sustainability disclosures, benchmark commercial HVAC/chiller plants, investigate port terminal operations (MTL, HACTL), and verify SBTi carbon targets with cryptographic evidence.
+            Audit client sustainability disclosures, benchmark commercial HVAC/chiller plants, investigate port terminal operations (MTL, HACTL), and verify SBTi carbon targets against cited public disclosures.
           </p>
 
           {/* Mode Switcher */}
@@ -769,7 +769,7 @@ export default function Home() {
                       </h2>
                     </div>
                     <span className="text-xs text-slate-400 font-mono">
-                      Target Entity Verified
+                      Grounded in retrieved sources
                     </span>
                   </div>
 
@@ -785,7 +785,7 @@ export default function Home() {
                       <div className="flex items-center space-x-2">
                         <Layers className="h-5 w-5 text-cyan-400" />
                         <h3 className="text-base font-bold text-white">
-                          Verified Decarbonization & Operational Telemetry ({data.result.findings.length})
+                          Cited Decarbonization & Operational Findings ({data.result.findings.length})
                         </h3>
                       </div>
                       <span className="text-xs text-slate-500 hidden sm:inline">
@@ -1022,11 +1022,11 @@ export default function Home() {
                   <div className="flex items-center space-x-2">
                     <Globe className="h-5 w-5 text-emerald-400" />
                     <h3 className="text-base font-bold text-white">
-                      Verified Client Disclosures & Reports ({data.sources.length})
+                      Retrieved Disclosures & Reports ({data.sources.length})
                     </h3>
                   </div>
                   <span className="text-xs text-slate-500">
-                    Ingested via Official Reports, PDFs & Jina SPA Reader
+                    Retrieved from public pages and PDFs, with a Jina Reader fallback
                   </span>
                 </div>
 
