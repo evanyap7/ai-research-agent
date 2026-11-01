@@ -192,6 +192,8 @@ export default function Home() {
     const savedKey =
       localStorage.getItem("groq_api_key") ||
       localStorage.getItem("gemini_api_key");
+    // Read after mount: a lazy useState initializer would cause an SSR hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (savedKey) setApiKey(savedKey);
   }, []);
 
@@ -199,6 +201,7 @@ export default function Home() {
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restart the stage ticker on each run
       setLoadingStep(0);
       interval = setInterval(() => {
         setLoadingStep((prev) => (prev < LOADING_STAGES.length - 1 ? prev + 1 : prev));
