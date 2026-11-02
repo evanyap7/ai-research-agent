@@ -61,3 +61,7 @@ Optional `TAVILY_API_KEY` or `SERPER_API_KEY` improve search. Deploys to Vercel 
 ## Next
 
 Allowlist mode, the labelled claim set for the eval, page caching with freshness timestamps, Markdown/PDF export, saved history.
+
+## AI assistance
+
+I built this with AI coding assistants, including Claude Code. The instructions they work from are in `CLAUDE.md` and `AGENTS.md`, and the tests are how I check their work.
