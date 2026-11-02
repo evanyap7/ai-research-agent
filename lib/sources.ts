@@ -10,11 +10,13 @@ export function isPublicUrl(value: string): boolean {
     }
 
     // URL keeps the brackets on IPv6 hosts ("[::1]"); ipaddr.js only parses the bare form.
-    const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+    // A trailing dot ("localhost.") is the same fully-qualified name to the resolver.
+    const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, "").replace(/\.+$/, "");
 
     // Check domain extensions / hostnames known to be internal/private
     if (
       host === "localhost" ||
+      host.endsWith(".localhost") ||
       host.endsWith(".local") ||
       host.endsWith(".internal") ||
       host.endsWith(".lan") ||
