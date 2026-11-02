@@ -2,6 +2,8 @@
 
 A source-grounded research tool for energy engineers and decarbonisation consultants. For each question it retrieves public webpages and PDFs, then answers **using only that retrieved material**, with source-level citations, structured findings and an explicit list of limitations.
 
+Built during my Univers internship.
+
 **Live:** <https://approved-research-agent.vercel.app> · Next.js, TypeScript, Vercel AI SDK, Groq (Gemini fallback), Zod
 
 ![The research agent's interface](docs/screenshot.png)
