@@ -38,7 +38,7 @@ flowchart TD
 
 - No allowlist mode, so nothing guarantees a source is official. The UI lists every source so the reader can judge.
 - The truth rating is the model's judgement, not a calibrated probability.
-- Citation accuracy is not yet measured by an automated evaluation.
+- Verdict accuracy and calibration are not measured yet. The [eval harness](evals/README.md) (`npm run eval`) is in place, but it needs 40 to 60 claims that I have labelled myself, and none are labelled yet. Citations are checked by hand from its spot-check list.
 
 *The repository name is historical: the app does not restrict itself to a fixed list of approved sites.*
 
@@ -58,4 +58,4 @@ Optional `TAVILY_API_KEY` or `SERPER_API_KEY` improve search. Deploys to Vercel 
 
 ## Next
 
-Allowlist mode, automated citation evaluation, page caching with freshness timestamps, Markdown/PDF export, saved history.
+Allowlist mode, the labelled claim set for the eval, page caching with freshness timestamps, Markdown/PDF export, saved history.
