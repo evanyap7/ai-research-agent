@@ -49,8 +49,8 @@ flowchart TD
 Needs Node 20.9+ and a free [Groq key](https://console.groq.com) or a Gemini key.
 
 ```bash
-git clone https://github.com/evanyap7/approved-research-agent.git
-cd approved-research-agent
+git clone https://github.com/evanyap7/ai-research-agent.git
+cd ai-research-agent
 npm install
 cp .env.example .env.local   # add GROQ_API_KEY (or GOOGLE_GENERATIVE_AI_API_KEY)
 npm run dev                  # http://localhost:3000
